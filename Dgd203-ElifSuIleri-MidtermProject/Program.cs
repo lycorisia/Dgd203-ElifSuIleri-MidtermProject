@@ -137,29 +137,25 @@ var questions = new List<(string question, List<(string answer, string classType
 foreach (var question in questions)
 {
     Console.WriteLine(question.question);
-
-    // Shuffle answers
+    
     var randomizedAnswers = new List<(string answer, string classType)>(question.answers);
     for (int i = randomizedAnswers.Count - 1; i > 0; i--)
     {
         int j = random.Next(i + 1);
         (randomizedAnswers[i], randomizedAnswers[j]) = (randomizedAnswers[j], randomizedAnswers[i]);
     }
-
-    // Display randomized answers
+    
     for (int i = 0; i < randomizedAnswers.Count; i++)
     {
         Console.WriteLine($"{i + 1}. {randomizedAnswers[i].answer}");
     }
-
-    // Player selects an answer
+    
     int choice;
     do
     {
         Console.Write("\nYour choice (1-4): ");
     } while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 4);
-
-    // Update scores based on the selected answer
+    
     switch (randomizedAnswers[choice - 1].classType)
     {
         case "Warrior": warriorScore++; break;
@@ -171,7 +167,6 @@ foreach (var question in questions)
 
 Console.WriteLine("Hmm...");
 
-// Determine the player's class and description
 string playerClass = "Adventurer";
 string classDescription = "an adventurer, exploring all possibilities!";
 string rareMessage = "";
@@ -232,29 +227,20 @@ else
     {
         playerClass = "Shadow Priest";
         rareMessage = $"Oh my, it seems you have a balance of Rogue and Healer. You are a Shadow Priest, {playerName}!";
-        classDescription = "A helper for those who were left in the dark. Those ignored by society, you will protect.";
-    }
-    else if (warriorScore == mageScore && warriorScore == rogueScore && warriorScore == healerScore)
-    {
-        playerClass = "Universal Adventurer";
-        rareMessage = $"Oh my, it seems you are perfectly balanced in all classes. You are a Universal Adventurer, {playerName}!";
-        classDescription = "A rare soul who equally embodies the traits of a Warrior, Mage, Rogue, and Healer.";
+        classDescription = "A helper for those who were left in the dark. You are the hope to those in the dark.";
     }
 }
 
-// Display the rare message with description if applicable
 if (!string.IsNullOrEmpty(rareMessage))
 {
     Console.WriteLine($"\n{rareMessage}");
-    Console.WriteLine(classDescription); // Add the class description here
+    Console.WriteLine(classDescription); 
 }
 else
 {
     Console.WriteLine($"\nI, EMI the Class Seeker, looked into your mind, heart, and soul to discover your class... You are a {playerClass}!");
-    Console.WriteLine(classDescription); // Add the class description for standard classes
+    Console.WriteLine(classDescription); 
 }
 
-// Farewell message
 Console.WriteLine($"\nNow that we uncovered your class, {playerName}, it is time for you to depart. Let the gods protect you.");
 Console.WriteLine("With that, you leave the Selection Coven, now ready for adventure! I wonder what the future holds. You just hope you get to see EMI again.");
-
